@@ -35,20 +35,36 @@ int[,] LineCrash(int[,] array)
                     sum++;
                 }
             }
-            if(sum == array.GetLength(1) - 1)
+            if(sum == array.GetLength(1))
             {
                 for(int j = 0; j < array.GetLength(1); j++)
                 {
                     array[i, j] = 0;
                 }
-            }
+                for(int xi = i; xi >=0; xi--)
+                {
+                    for(int j = 0; j < array.GetLength(1); j++)
+                    {
+                        if(array[xi, j] == 1)
+                        {
+                            array[xi, j] = 0;
+                            array[xi + 1, j] = 1;
+                        }
+                    }
+                }
+            }            
             sum = 0;
         }
     return array;
 }
 
-void ObjectCoord(int[,] array, int x = 0, int y = 5)
+
+void ObjectCoord(int[,] array)
 {   
+    Random rnd = new Random();
+    int x = 0;
+    int y = rnd.Next(0, array.GetLength(1) - 1);
+    
     int fl = 0;
     int lf = 0;
     int ytemp = 0;
@@ -73,9 +89,9 @@ void ObjectCoord(int[,] array, int x = 0, int y = 5)
             {          
                 y = y + 1;
             }
-            Console.Write($"{x} : {y}");
-            Console.ReadKey();
-            Console.WriteLine(array.GetLength(0));
+            // Console.Write($"{x} : {y}");
+            // Console.ReadKey();
+            // Console.WriteLine(array.GetLength(0));
             if((x < array.GetLength(0) - 2) & (array[x + 1, y] == 0))
             {   
                 array[x + 1, y] = 1;
@@ -93,7 +109,3 @@ void ObjectCoord(int[,] array, int x = 0, int y = 5)
 
 Console.Clear();
 ObjectCoord(matrix);
-// var i = Console.ReadKey();
-// int triger = Convert.ToInt32(i.Key);
-// Console.WriteLine();
-// Console.WriteLine(triger);
