@@ -1,6 +1,6 @@
 ﻿// Console.WriteLine("▒");
 
-int[,] matrix = new int[10,20];
+int[,] matrix = new int[15,20];
 // matrix[0,1] = 1;
 
 void ShowArea(int[,] array)
@@ -36,31 +36,29 @@ void ObjectCoord(int[,] array, int x = 0, int y = 5)
             ShowArea(array);
             var key = Console.ReadKey();
             int triger = Convert.ToInt32(key.Key);
+            ytemp = y;
             //left
-            if((triger == 37) && (y < 20) && (y >= 0))
+            if((triger == 37) && (y >= 1))
             {   
-                ytemp = y;
                 y = y - 1;
             }
             //right
-            if((triger == 39) && (y < 20) && (y >= 0))
-            {   
-                ytemp = y;
+            if((triger == 39) && (y < array.GetLength(1) -1 ))
+            {          
                 y = y + 1;
             }
-            Console.Write($"*-{array[x + 1, y]}");
-            if((array[x + 1, y] == 0) && (x + 1 < 10))
+            // Console.Write($"{x} : {y}");
+            // Console.ReadKey();
+            if((array[x + 1, y] == 0) && (x + 1 < array.GetLength(0)))
             {   
-                Console.Write(">>>YES");
                 array[x + 1, y] = 1;
                 array[x, ytemp] = 0;
                 x++;
             }
-            var j = Console.ReadKey();
-            // else
-            // {
-            //     fl = 1;
-            // }
+            else
+            {
+                fl = 1;
+            }
         }
     }
 }
