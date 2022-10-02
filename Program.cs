@@ -23,14 +23,40 @@ void ShowArea(int[,] array)
     }
 }
 
+int[,] LineCrash(int[,] array)
+{
+    int sum = 0;
+    for(int i = 0; i < array.GetLength(0); i++)
+        {
+            for(int j = 0; j < array.GetLength(1); j++)
+            {
+                if(array[i, j] == 1)
+                {
+                    sum++;
+                }
+            }
+            if(sum == array.GetLength(1) - 1)
+            {
+                for(int j = 0; j < array.GetLength(1); j++)
+                {
+                    array[i, j] = 0;
+                }
+            }
+            sum = 0;
+        }
+    return array;
+}
+
 void ObjectCoord(int[,] array, int x = 0, int y = 5)
 {   
     int fl = 0;
     int lf = 0;
-    array[x, y] = 1;
+    int ytemp = 0;
+
     while(lf == 0) 
-    {
-        int ytemp = 0;
+    {   
+        array[x, y] = 1;
+        
         while(fl == 0)
         {        
             ShowArea(array);
@@ -47,9 +73,10 @@ void ObjectCoord(int[,] array, int x = 0, int y = 5)
             {          
                 y = y + 1;
             }
-            // Console.Write($"{x} : {y}");
-            // Console.ReadKey();
-            if((array[x + 1, y] == 0) && (x + 1 < array.GetLength(0)))
+            Console.Write($"{x} : {y}");
+            Console.ReadKey();
+            Console.WriteLine(array.GetLength(0));
+            if((x < array.GetLength(0) - 2) & (array[x + 1, y] == 0))
             {   
                 array[x + 1, y] = 1;
                 array[x, ytemp] = 0;
@@ -57,7 +84,7 @@ void ObjectCoord(int[,] array, int x = 0, int y = 5)
             }
             else
             {
-                fl = 1;
+                ObjectCoord(LineCrash(array));
             }
         }
     }
